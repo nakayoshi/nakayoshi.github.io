@@ -1,32 +1,36 @@
+import { useInfiniteQuery } from "react-query"
+import { takePassage } from "fetcher/storyTeller"
 import styled from "styled-components"
 import ChatMessage from "./ChatMessage"
-import ChatMetaMessage from "./ChatMetaMessage"
 
-const Wrapper = styled.div`
+const Wrapper = styled.ul`
   background-color: #292841;
   width: 100%;
   padding: 10px 0;
+  overflow-y: scroll;
 `
 
 const ChatView = () => {
+  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery(
+    "chats",
+    ({ pageParam = 0 }) => takePassage(pageParam),
+    {
+      getNextPageParam: (lastData) => lastData.nextIndex || undefined,
+    }
+  )
+
   return (
     <Wrapper>
-      <ChatMetaMessage>観測者がログインしました</ChatMetaMessage>
-      <ChatMessage isMine={false}>nakayoshi.danceへようこそ</ChatMessage>
-      <ChatMessage isMine={false}>
-        私たちは私たちのことを団体であるとは考えていません
-      </ChatMessage>
-      <ChatMessage isMine={false}>
-        あくまで個人間のネットワークなのです
-      </ChatMessage>
-      <ChatMessage isMine={true}>それを団体っていうんじゃないの？</ChatMessage>
-      <ChatMessage isMine={true}>それを団体っていうんじゃないの？</ChatMessage>
-      <ChatMessage isMine={true}>それを団体っていうんじゃないの？</ChatMessage>
-      <ChatMessage isMine={true}>それを団体っていうんじゃないの？</ChatMessage>
-      <ChatMessage isMine={true}>それを団体っていうんじゃないの？</ChatMessage>
-      <ChatMessage isMine={true}>それを団体っていうんじゃないの？</ChatMessage>
-      <ChatMessage isMine={true}>それを団体っていうんじゃないの？</ChatMessage>
-      <ChatMessage isMine={true}>それを団体っていうんじゃないの？</ChatMessage>
+      {data?.pages.map((response, i) => {
+        return (
+          <ChatMessage
+            key={i}
+            message={response.message}
+            onMounted={() => fetchNextPage({ cancelRefetch: false })}
+            isLast={!hasNextPage}
+          />
+        )
+      })}
     </Wrapper>
   )
 }

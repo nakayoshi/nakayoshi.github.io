@@ -47,7 +47,7 @@ const SendButtonLabel = styled.span`
 const MessageField = () => {
   return (
     <Wrapper>
-      <InputField />
+      <InputField disabled={true} />
       <SendButtonWrapper>
         <SendButton>
           <SendButtonLabel>

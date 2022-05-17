@@ -1,15 +1,9 @@
-import NextDocument, {
-  Html,
-  Head,
-  Main,
-  NextScript,
-  DocumentContext,
-} from "next/document"
+import Document from "next/document"
+import { Html, Head, Main, NextScript, DocumentContext } from "next/document"
+import React from "react"
 import { ServerStyleSheet } from "styled-components"
 
-type Props = {}
-
-class Document extends NextDocument<Props> {
+class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     const sheet = new ServerStyleSheet()
     const originalRenderPage = ctx.renderPage
@@ -21,16 +15,18 @@ class Document extends NextDocument<Props> {
             sheet.collectStyles(<App {...props} />),
         })
 
-      const initialProps: any = await NextDocument.getInitialProps(ctx)
+      const initialProps = await Document.getInitialProps(ctx)
       return {
         ...initialProps,
-        styles: (
+        styles: [
           <>
             {initialProps.styles}
             {sheet.getStyleElement()}
-          </>
-        ),
+          </>,
+        ],
       }
+    } catch {
+      throw new Error("document error")
     } finally {
       sheet.seal()
     }
@@ -78,4 +74,4 @@ class Document extends NextDocument<Props> {
   }
 }
 
-export default Document
+export default MyDocument
