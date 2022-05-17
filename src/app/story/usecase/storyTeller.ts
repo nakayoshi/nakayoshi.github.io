@@ -84,12 +84,12 @@ class StoryTeller {
         userType: Others,
       })
     )
-    storyTeller.know(
-      makeTextMessage({
-        text: "もし興味があればDiscordのリンクを差し上げますが？",
-        userType: Others,
-      })
-    )
+    // storyTeller.know(
+    //   makeTextMessage({
+    //     text: "もし興味があればDiscordのリンクを差し上げますが？",
+    //     userType: Others,
+    //   })
+    // )
     return storyTeller
   }
 }
