@@ -1,8 +1,6 @@
-import ChatMessage from "components/ChatMessage"
 import ChatView from "components/ChatView"
 import MessageField from "components/MessageField"
 import type { NextPage } from "next"
-import Head from "next/head"
 import styled from "styled-components"
 
 const Wrapper = styled.div`
@@ -11,12 +9,15 @@ const Wrapper = styled.div`
   height: auto;
   width: auto;
   background-color: #292841;
-  /* & > div:first-child {
+  width: 100%;
+  height: 100%;
+  & > div:first-child {
     position: relative;
-    bottom: ;
-  } */
+    top: 0;
+    padding-bottom: 74px;
+  }
   & > div:last-child {
-    position: sticky;
+    position: fixed;
     right: 0;
     bottom: 0;
     left: 0;
