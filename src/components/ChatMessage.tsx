@@ -3,12 +3,17 @@ import { ReactNode, useEffect, useMemo } from "react"
 import {
   LinkInfo,
   Message,
+  MessageType,
   Meta,
+  MetaMessage,
+  OgpMessage,
   Others,
   Self,
+  TextMessage,
   UserType,
 } from "app/story/domain/message"
 import Link from "next/link"
+import { ChatOgpMessage } from "./ChatOgpMessage"
 
 const takeJustifyContent = (userType: UserType) => {
   switch (userType) {
@@ -36,19 +41,36 @@ const takeBackgroundColor = (userType: UserType) => {
   }
 }
 
-const MessageWrapper = styled.li<{ userType: UserType }>`
+const takePadding = (messageType: MessageType) => {
+  switch (messageType) {
+    case TextMessage:
+      return "10px"
+    case OgpMessage:
+      return "0"
+    case MetaMessage:
+      return "2px 20px"
+    default:
+      return 10
+  }
+}
+
+const MessageWrapper = styled.li<{
+  userType: UserType
+  messageType: MessageType
+}>`
   display: flex;
   align-items: center;
   width: 100%;
   justify-content: ${(props) => takeJustifyContent(props.userType)};
 
   & > div {
+    width: ${(props) => (props.messageType === OgpMessage ? "60%" : "auto")};
+    padding: ${(props) => takePadding(props.messageType)};
     background-color: ${(props) => takeBackgroundColor(props.userType)};
   }
 `
 
 const MessageBaloon = styled.div`
-  padding: 10px;
   border-radius: 8px;
   margin: 10px 20px;
   max-width: 60%;
@@ -63,7 +85,6 @@ const MessageBaloon = styled.div`
 `
 
 const MetaMessageBaloon = styled.div`
-  padding: 2px 20px;
   margin: 10px;
   border-radius: 20px;
   font-size: 12px;
@@ -136,11 +157,17 @@ const ChatMessage: React.FC<Props> = ({ message, onMounted, isLast }) => {
     return <div />
   }
   const userType = message.userType
+  const messageTypes = message.type
+  const ogp = message.ogp
 
   return (
-    <MessageWrapper userType={userType}>
+    <MessageWrapper userType={userType} messageType={messageTypes}>
       {userType === Meta ? (
         <MetaMessageBaloon>{messageText}</MetaMessageBaloon>
+      ) : ogp ? (
+        <MessageBaloon>
+          <ChatOgpMessage ogp={ogp} />
+        </MessageBaloon>
       ) : (
         <MessageBaloon>{messageText}</MessageBaloon>
       )}

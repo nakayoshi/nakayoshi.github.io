@@ -1,7 +1,9 @@
 import {
   makeMetaMessage,
+  makeOgpMessage,
   makeTextMessage,
   Message,
+  OgpLarge,
   Others,
   Self,
 } from "app/story/domain/message"
@@ -106,6 +108,52 @@ class StoryTeller {
             url: new URL("https://github.com/nakayoshi/"),
           },
         ],
+      })
+    )
+    storyTeller.know(
+      makeOgpMessage(Others, {
+        type: OgpLarge,
+        title: "なかよし",
+        description: "Discordサーバー「なかよし」. なか...",
+        imagePath: "/nakayoshi.jpg",
+        url: "https://github.com/nakayoshi/",
+      })
+    )
+    storyTeller.know(
+      makeTextMessage({
+        text: "GitHubやんけ",
+        userType: Self,
+      })
+    )
+    storyTeller.know(
+      makeTextMessage({
+        text: "私たちについてもっと知りたいのなら\n/about\nまた話したい時には\n/contact\nにアクセスしてください。では。",
+        userType: Others,
+      })
+    )
+    storyTeller.know(
+      makeOgpMessage(Others, {
+        type: OgpLarge,
+        title: "About",
+        description: "私たちのことを知る",
+        imagePath: "/nakayoshi.jpg",
+        url: "/about",
+      })
+    )
+    storyTeller.know(
+      makeOgpMessage(Others, {
+        type: OgpLarge,
+        title: "Contact",
+        description: "話したい？",
+        imagePath: "/nakayoshi.jpg",
+        url: "/contact",
+      })
+    )
+    storyTeller.know(makeMetaMessage("nakayoshi.danceがログアウトしました"))
+    storyTeller.know(
+      makeTextMessage({
+        text: "いなくなっちゃった・・・",
+        userType: Self,
       })
     )
     return storyTeller

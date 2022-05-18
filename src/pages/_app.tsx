@@ -7,7 +7,9 @@ import Head from "next/head"
 const queryClient = new QueryClient()
 
 const GlobalStyle = createGlobalStyle`
- * {
+  *,
+  *::before,
+  *::after {
   margin: 0;
   padding: 0;
   border: 0;

@@ -20,8 +20,8 @@ export type Message = {
   ogp?: OgpInfo
 }
 
-const OgpSmall = "OgpSmall"
-const OgpLarge = "OgpLarge"
+export const OgpSmall = "OgpSmall"
+export const OgpLarge = "OgpLarge"
 
 export type OgpType = typeof OgpSmall | typeof OgpLarge
 
@@ -61,7 +61,7 @@ export const makeMetaMessage = (text: string): Message => {
   }
 }
 
-export const makeOgpMessage = (userType: UserType, ogp: OgpInfo) => {
+export const makeOgpMessage = (userType: UserType, ogp: OgpInfo): Message => {
   return {
     type: OgpMessage,
     userType: userType,
