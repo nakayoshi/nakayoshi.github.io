@@ -37,7 +37,6 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <meta name="viewport" content="width=device-width,initial-scale=1" />
           <meta property="og:title" content="なかよし" />
           <meta property="og:type" content="website" />
           <meta property="og:url" content="https://nakayoshi.dance" />
