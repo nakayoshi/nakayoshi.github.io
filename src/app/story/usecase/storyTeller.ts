@@ -7,7 +7,7 @@ import {
 } from "app/story/domain/message"
 
 type TellResponse = {
-  message?: Message
+  message: Message
   nextIndex?: number
 }
 
@@ -25,7 +25,7 @@ class StoryTeller {
   async tell(index: number): Promise<TellResponse> {
     await new Promise((resolve) => setTimeout(resolve, 800))
     if (!this.checkIndex(index)) {
-      return { message: undefined, nextIndex: undefined }
+      throw new Error("no index")
     }
     const message = this.story[index]
 
@@ -49,7 +49,10 @@ class StoryTeller {
     storyTeller.know(makeMetaMessage("nakayoshi.danceがログインしました"))
     storyTeller.know(makeMetaMessage("訪問者がログインしました"))
     storyTeller.know(
-      makeTextMessage({ text: "nakayoshi.danceへようこそ", userType: Others })
+      makeTextMessage({
+        text: "nakayoshi.danceへようこそ",
+        userType: Others,
+      })
     )
     storyTeller.know(
       makeTextMessage({
@@ -76,7 +79,10 @@ class StoryTeller {
       })
     )
     storyTeller.know(
-      makeTextMessage({ text: "うるさい　ばか", userType: Others })
+      makeTextMessage({
+        text: "うるさい　ばか",
+        userType: Others,
+      })
     )
     storyTeller.know(
       makeTextMessage({
@@ -84,12 +90,24 @@ class StoryTeller {
         userType: Others,
       })
     )
-    // storyTeller.know(
-    //   makeTextMessage({
-    //     text: "もし興味があればDiscordのリンクを差し上げますが？",
-    //     userType: Others,
-    //   })
-    // )
+    storyTeller.know(
+      makeTextMessage({
+        text: "えぇ...？別にいらないかな。",
+        userType: Self,
+      })
+    )
+    storyTeller.know(
+      makeTextMessage({
+        text: "https://github.com/nakayoshi/",
+        userType: Others,
+        links: [
+          {
+            linkText: "https://github.com/nakayoshi/",
+            url: new URL("https://github.com/nakayoshi/"),
+          },
+        ],
+      })
+    )
     return storyTeller
   }
 }

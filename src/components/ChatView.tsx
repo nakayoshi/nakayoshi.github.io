@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from "react-query"
-import { takePassage } from "fetcher/storyTeller"
+import { takeMessage } from "fetcher/storyTeller"
 import styled from "styled-components"
 import ChatMessage from "./ChatMessage"
 
@@ -13,7 +13,7 @@ const Wrapper = styled.ul`
 const ChatView = () => {
   const { data, fetchNextPage, hasNextPage } = useInfiniteQuery(
     "chats",
-    ({ pageParam = 0 }) => takePassage(pageParam),
+    ({ pageParam = 0 }) => takeMessage(pageParam),
     {
       getNextPageParam: (lastData) => lastData.nextIndex || undefined,
     }

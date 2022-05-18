@@ -1,6 +1,14 @@
 import styled from "styled-components"
-import { useEffect } from "react"
-import { Message, Meta, Others, Self, UserType } from "app/story/domain/message"
+import { ReactNode, useEffect, useMemo } from "react"
+import {
+  LinkInfo,
+  Message,
+  Meta,
+  Others,
+  Self,
+  UserType,
+} from "app/story/domain/message"
+import Link from "next/link"
 
 const takeJustifyContent = (userType: UserType) => {
   switch (userType) {
@@ -49,6 +57,9 @@ const MessageBaloon = styled.div`
   & > span {
     color: rgba(0, 0, 0, 0.9);
   }
+  a {
+    color: #7f93c4;
+  }
 `
 
 const MetaMessageBaloon = styled.div`
@@ -63,9 +74,53 @@ const MetaMessageBaloon = styled.div`
 `
 
 type Props = {
-  message?: Message
+  message: Message
   onMounted: () => void
   isLast: boolean
+}
+
+const tagLinkElement = (text: string, link: LinkInfo) => {
+  const texts = text.split(link.linkText) as ReactNode[]
+  texts.splice(
+    1,
+    0,
+    <Link href={link.url} passHref>
+      <a>{link.linkText}</a>
+    </Link>
+  ) // "abc" -> [a,b,c]
+
+  return texts.map((e, i) => <span key={i}>{e}</span>)
+}
+
+const softSplitMultiple = (textList: string[], link: LinkInfo) => {
+  return textList.map((text) => {
+    console.log(tagLinkElement(text, link))
+    return tagLinkElement(text, link)
+  })
+}
+
+const makeText = (message: Message) => {
+  const links = message.links
+  const text = message.text
+
+  if (!text) {
+    return ""
+  }
+  if (!links) {
+    return text
+  }
+
+  const make = (index: number, textList: ReactNode[]): ReactNode[] => {
+    const result: ReactNode[] = softSplitMultiple(
+      textList as string[],
+      links[index]
+    ).flat()
+    const nextIndex = index + 1
+    if (links.length < nextIndex) return make(nextIndex, result)
+    return result
+  }
+
+  return make(0, [text])
 }
 
 const ChatMessage: React.FC<Props> = ({ message, onMounted, isLast }) => {
@@ -75,6 +130,8 @@ const ChatMessage: React.FC<Props> = ({ message, onMounted, isLast }) => {
     }
   }, [onMounted, isLast])
 
+  const messageText = useMemo(() => <span>{makeText(message)}</span>, [message])
+
   if (!message) {
     return <div />
   }
@@ -83,13 +140,9 @@ const ChatMessage: React.FC<Props> = ({ message, onMounted, isLast }) => {
   return (
     <MessageWrapper userType={userType}>
       {userType === Meta ? (
-        <MetaMessageBaloon>
-          <span>{message.text}</span>
-        </MetaMessageBaloon>
+        <MetaMessageBaloon>{messageText}</MetaMessageBaloon>
       ) : (
-        <MessageBaloon>
-          <span>{message.text}</span>
-        </MessageBaloon>
+        <MessageBaloon>{messageText}</MessageBaloon>
       )}
     </MessageWrapper>
   )
