@@ -1,5 +1,4 @@
 import { OgpInfo } from "app/story/domain/message"
-import Image from "next/image"
 import styled from "styled-components"
 
 const Wrapper = styled.div`
@@ -16,8 +15,11 @@ const OgpImageContainer = styled.div`
   height: 140px;
 `
 
-const OgpImage = styled(Image)`
+const OgpImage = styled.img`
   border-radius: 8px 8px 0px 0px;
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
 `
 
 const OgpText = styled.div`
@@ -53,12 +55,7 @@ export const ChatOgpMessage: React.FC<Props> = ({ ogp }) => {
   return (
     <Wrapper>
       <OgpImageContainer>
-        <OgpImage
-          src={ogp.imagePath}
-          layout={"fill"}
-          alt={ogp.title}
-          objectFit={"cover"}
-        />
+        <OgpImage src={ogp.imagePath} alt={ogp.title} />
       </OgpImageContainer>
       <OgpText>
         <h4>{ogp.title}</h4>
