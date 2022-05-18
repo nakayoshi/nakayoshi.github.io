@@ -7,7 +7,7 @@ import StoryTeller from "app/story/usecase/storyTeller"
 
 const storyTeller = StoryTeller.fromPrepared()
 
-export const takePassage = async (index: number) => {
+export const takeMessage = async (index: number) => {
   const result = await storyTeller.tell(index)
   return result
 }

@@ -16,11 +16,12 @@ export type Message = {
   type: MessageType
   userType: UserType
   text?: string
+  links?: LinkInfo[]
   ogp?: OgpInfo
 }
 
-const OgpSmall = "OgpSmall"
-const OgpLarge = "OgpLarge"
+export const OgpSmall = "OgpSmall"
+export const OgpLarge = "OgpLarge"
 
 export type OgpType = typeof OgpSmall | typeof OgpLarge
 
@@ -32,13 +33,23 @@ export type OgpInfo = {
   imagePath: string
 }
 
-type MakeTextMessageParams = { text: string; userType: UserType }
+export type LinkInfo = {
+  linkText: string
+  url: URL
+}
+
+type MakeTextMessageParams = {
+  text: string
+  userType: UserType
+  links?: LinkInfo[]
+}
 
 export const makeTextMessage = (params: MakeTextMessageParams): Message => {
   return {
     type: TextMessage,
     text: params.text,
     userType: params.userType,
+    links: params.links,
   }
 }
 
@@ -50,7 +61,7 @@ export const makeMetaMessage = (text: string): Message => {
   }
 }
 
-export const makeOgpMessage = (userType: UserType, ogp: OgpInfo) => {
+export const makeOgpMessage = (userType: UserType, ogp: OgpInfo): Message => {
   return {
     type: OgpMessage,
     userType: userType,
