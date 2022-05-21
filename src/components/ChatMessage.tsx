@@ -65,7 +65,7 @@ export const MessageWrapper = styled.li<{
 export const MessageBaloon = styled.div`
   border-radius: 8px;
   margin: 10px 20px;
-  max-width: 280px;
+  max-width: 250px;
   font-size: 14px;
 
   & > span {
@@ -95,7 +95,8 @@ type Props = {
 
 const splitSoft = (text: string, separator: string) => {
   const exp = new RegExp(`(${separator})`)
-  return text.split(exp)
+  const result = text.split(exp)
+  return result
 }
 
 const makeSplittedLinkText = (message: Message) => {

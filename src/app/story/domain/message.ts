@@ -17,8 +17,8 @@ export type Message = {
   ogp?: OgpInfo
 }
 
-export const Small = "OgpSmall"
-export const Large = "OgpLarge"
+export const Small = "Small"
+export const Large = "Large"
 
 export type OgpSize = typeof Small | typeof Large
 

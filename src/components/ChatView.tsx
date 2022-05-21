@@ -19,7 +19,7 @@ const ChatView = () => {
 
   const { data, fetchNextPage, hasNextPage } = useInfiniteQuery(
     "chats",
-    ({ pageParam = 0 }) => takeMessage(pageParam),
+    async ({ pageParam = 0 }) => await takeMessage(pageParam),
     {
       getNextPageParam: (lastData) => lastData.nextIndex || undefined,
     }

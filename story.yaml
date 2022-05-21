@@ -31,7 +31,7 @@
   user: Self
 - type: EndTyping
   user: Self
-  delayed: 1
+  delayed: 0.8
 - type: SendMessage
   message:
     text: え、だれ？
@@ -70,7 +70,7 @@
   user: Self
 - type: EndTyping
   user: Self
-  delayed: 2
+  delayed: 0.8
 - type: SendMessage
   message:
     text: それを団体っていうんじゃないの？
@@ -95,12 +95,12 @@
 
 - type: EndTyping
   user: Others
-  delayed: 2
+  delayed: 1
 - type: StartTyping
   user: Others
 - type: EndTyping
   user: Others
-  delayed: 3
+  delayed: 2
 - type: SendMessage
   message:
     text: もし興味があればDiscordのリンクを差し上げますが？
@@ -109,7 +109,7 @@
 
 - type: EndTyping
   user: Self
-  delayed: 0.2
+  delayed: 0.4
 - type: StartTyping
   user: Self
 - type: EndTyping
@@ -141,24 +141,39 @@
 - type: EndTyping
   user: Others
   delayed: 0.4
+- type: SendMessage
   message:
     type: OgpMessage
     user: Others
     ogp:
       size: Large
-      title: "なかよし"
+      title: なかよし
       description: Discordサーバー「なかよし」. なか...
       imagePath: /nakayoshi.jpg
       url: https://github.com/nakayoshi/
 
 - type: EndTyping
-  user: Others
+  user: Self
   delayed: 0.2
+- type: StartTyping
+  user: Self
+- type: EndTyping
+  user: Self
+  delayed: 1
+- type: SendMessage
+  message:
+    text: GitHubやんけ
+    type: TextMessage
+    user: Self
+
+- type: EndTyping
+  user: Others
+  delayed: 1
 - type: StartTyping
   user: Others
 - type: EndTyping
   user: Others
-  delayed: 1
+  delayed: 2
 - type: SendMessage
   message:
     text: |-
@@ -173,7 +188,7 @@
       - linkText: /about
         url: /about
       - linkText: /contact
-        url: contact
+        url: /contact
 
 - type: EndTyping
   user: Others
@@ -191,7 +206,7 @@
 
 - type: EndTyping
   user: Others
-  delayed: 0.4
+  delayed: 0.1
 - type: SendMessage
   message:
     type: OgpMessage
@@ -205,7 +220,7 @@
 
 - type: EndTyping
   user: Others
-  delayed: 0.2
+  delayed: 1
 - type: SendMessage
   message:
     text: nakayoshi.danceがログアウトしました
@@ -213,7 +228,7 @@
 
 - type: EndTyping
   user: Self
-  delayed: 0.4
+  delayed: 1
 - type: SendMessage
   message:
     text: いなくなっちゃった・・・

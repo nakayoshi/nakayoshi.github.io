@@ -51,7 +51,7 @@
   {
     "type": "EndTyping",
     "user": "Self",
-    "delayed": 1
+    "delayed": 0.8
   },
   {
     "type": "SendMessage",
@@ -112,7 +112,7 @@
   {
     "type": "EndTyping",
     "user": "Self",
-    "delayed": 2
+    "delayed": 0.8
   },
   {
     "type": "SendMessage",
@@ -147,7 +147,7 @@
   {
     "type": "EndTyping",
     "user": "Others",
-    "delayed": 2
+    "delayed": 1
   },
   {
     "type": "StartTyping",
@@ -156,7 +156,7 @@
   {
     "type": "EndTyping",
     "user": "Others",
-    "delayed": 3
+    "delayed": 2
   },
   {
     "type": "SendMessage",
@@ -169,7 +169,7 @@
   {
     "type": "EndTyping",
     "user": "Self",
-    "delayed": 0.2
+    "delayed": 0.4
   },
   {
     "type": "StartTyping",
@@ -219,7 +219,10 @@
   {
     "type": "EndTyping",
     "user": "Others",
-    "delayed": 0.4,
+    "delayed": 0.4
+  },
+  {
+    "type": "SendMessage",
     "message": {
       "type": "OgpMessage",
       "user": "Others",
@@ -234,8 +237,30 @@
   },
   {
     "type": "EndTyping",
-    "user": "Others",
+    "user": "Self",
     "delayed": 0.2
+  },
+  {
+    "type": "StartTyping",
+    "user": "Self"
+  },
+  {
+    "type": "EndTyping",
+    "user": "Self",
+    "delayed": 1
+  },
+  {
+    "type": "SendMessage",
+    "message": {
+      "text": "GitHubやんけ",
+      "type": "TextMessage",
+      "user": "Self"
+    }
+  },
+  {
+    "type": "EndTyping",
+    "user": "Others",
+    "delayed": 1
   },
   {
     "type": "StartTyping",
@@ -244,7 +269,7 @@
   {
     "type": "EndTyping",
     "user": "Others",
-    "delayed": 1
+    "delayed": 2
   },
   {
     "type": "SendMessage",
@@ -259,7 +284,7 @@
         },
         {
           "linkText": "/contact",
-          "url": "contact"
+          "url": "/contact"
         }
       ]
     }
@@ -286,7 +311,7 @@
   {
     "type": "EndTyping",
     "user": "Others",
-    "delayed": 0.4
+    "delayed": 0.1
   },
   {
     "type": "SendMessage",
@@ -305,7 +330,7 @@
   {
     "type": "EndTyping",
     "user": "Others",
-    "delayed": 0.2
+    "delayed": 1
   },
   {
     "type": "SendMessage",
@@ -317,7 +342,7 @@
   {
     "type": "EndTyping",
     "user": "Self",
-    "delayed": 0.4
+    "delayed": 1
   },
   {
     "type": "SendMessage",
