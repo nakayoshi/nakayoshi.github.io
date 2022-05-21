@@ -1,7 +1,10 @@
 import { useInfiniteQuery } from "react-query"
 import { takeMessage } from "fetcher/storyTeller"
 import styled from "styled-components"
-import ChatMessage from "./ChatMessage"
+import ChatMessage, { MessageBaloon, MessageWrapper } from "./ChatMessage"
+import Typing from "./Typing"
+import { EndTyping, SendMessage, StartTyping } from "app/story/domain/action"
+import { Others } from "app/story/domain/user"
 import { useEffect, useRef } from "react"
 
 const Wrapper = styled.ul`
@@ -16,7 +19,7 @@ const ChatView = () => {
 
   const { data, fetchNextPage, hasNextPage } = useInfiniteQuery(
     "chats",
-    ({ pageParam = 0 }) => takeMessage(pageParam),
+    async ({ pageParam = 0 }) => await takeMessage(pageParam),
     {
       getNextPageParam: (lastData) => lastData.nextIndex || undefined,
     }
@@ -36,14 +39,29 @@ const ChatView = () => {
   return (
     <Wrapper ref={ref}>
       {data?.pages.map((response, i) => {
-        return (
-          <ChatMessage
-            key={i}
-            message={response.message}
-            onMounted={() => fetchNextPage({ cancelRefetch: false })}
-            isLast={!hasNextPage}
-          />
-        )
+        if (response.result instanceof SendMessage) {
+          return (
+            <ChatMessage
+              key={i}
+              message={response.result.message}
+              onMounted={() => fetchNextPage()}
+              isLast={!hasNextPage}
+            />
+          )
+        } else if (response.result instanceof StartTyping) {
+          if (response.result.user === Others && data?.pages.length === i + 1) {
+            return (
+              <MessageWrapper key={i} userType={Others}>
+                <MessageBaloon>
+                  <Typing isTyping={true} />
+                </MessageBaloon>
+              </MessageWrapper>
+            )
+          }
+        } else if (response.result instanceof EndTyping) {
+          // endTyping()
+          return
+        }
       })}
     </Wrapper>
   )

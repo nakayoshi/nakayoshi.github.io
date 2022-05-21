@@ -1,47 +1,39 @@
 import styled from "styled-components"
-import { ReactNode, useEffect, useMemo } from "react"
+import { useEffect, useMemo } from "react"
 import {
-  LinkInfo,
   Message,
   MessageType,
-  Meta,
   MetaMessage,
   OgpMessage,
-  Others,
-  Self,
   TextMessage,
-  UserType,
 } from "app/story/domain/message"
 import Link from "next/link"
 import { ChatOgpMessage } from "./ChatOgpMessage"
+import { Others, Self, User } from "app/story/domain/user"
 
-const takeJustifyContent = (userType: UserType) => {
+const takeJustifyContent = (userType?: User) => {
   switch (userType) {
     case Self:
       return "flex-end"
     case Others:
       return "flex-start"
-    case Meta:
-      return "center"
     default:
-      return "flex-end"
+      return "center"
   }
 }
 
-const takeBackgroundColor = (userType: UserType) => {
+const takeBackgroundColor = (userType?: User) => {
   switch (userType) {
     case Self:
       return "#93df84"
     case Others:
       return "white"
-    case Meta:
-      return "rgba(229, 229, 229, 0.5)"
     default:
-      return "#93df84"
+      return "rgba(229, 229, 229, 0.5)"
   }
 }
 
-const takePadding = (messageType: MessageType) => {
+const takePadding = (messageType?: MessageType) => {
   switch (messageType) {
     case TextMessage:
       return "10px"
@@ -50,13 +42,13 @@ const takePadding = (messageType: MessageType) => {
     case MetaMessage:
       return "2px 20px"
     default:
-      return 10
+      return "10px"
   }
 }
 
-const MessageWrapper = styled.li<{
-  userType: UserType
-  messageType: MessageType
+export const MessageWrapper = styled.li<{
+  userType?: User
+  messageType?: MessageType
 }>`
   display: flex;
   align-items: center;
@@ -70,13 +62,14 @@ const MessageWrapper = styled.li<{
   }
 `
 
-const MessageBaloon = styled.div`
+export const MessageBaloon = styled.div`
   border-radius: 8px;
   margin: 10px 20px;
-  max-width: 60%;
+  max-width: 250px;
   font-size: 14px;
 
   & > span {
+    display: block;
     color: rgba(0, 0, 0, 0.9);
   }
   a {
@@ -100,48 +93,56 @@ type Props = {
   isLast: boolean
 }
 
-const tagLinkElement = (text: string, link: LinkInfo) => {
-  const texts = text.split(link.linkText) as ReactNode[]
-  texts.splice(
-    1,
-    0,
-    <Link href={link.url} passHref>
-      <a>{link.linkText}</a>
-    </Link>
-  ) // "abc" -> [a,b,c]
-
-  return texts.map((e, i) => <span key={i}>{e}</span>)
+const splitSoft = (text: string, separator: string) => {
+  const exp = new RegExp(`(${separator})`)
+  const result = text.split(exp)
+  return result
 }
 
-const softSplitMultiple = (textList: string[], link: LinkInfo) => {
-  return textList.map((text) => {
-    console.log(tagLinkElement(text, link))
-    return tagLinkElement(text, link)
-  })
-}
-
-const makeText = (message: Message) => {
+const makeSplittedLinkText = (message: Message) => {
   const links = message.links
   const text = message.text
 
   if (!text) {
-    return ""
+    return [""]
   }
   if (!links) {
-    return text
+    return [text]
   }
 
-  const make = (index: number, textList: ReactNode[]): ReactNode[] => {
-    const result: ReactNode[] = softSplitMultiple(
-      textList as string[],
-      links[index]
-    ).flat()
-    const nextIndex = index + 1
-    if (links.length < nextIndex) return make(nextIndex, result)
-    return result
+  const make = (index: number, textList: string[]): string[] => {
+    const link = links[index]
+
+    const result = textList.map((text) => splitSoft(text, link.linkText))
+
+    if (links.length > index + 1) {
+      return make(index + 1, result.flat())
+    }
+    return result.flat()
   }
 
   return make(0, [text])
+}
+
+const tagLinkText = (message: Message) => {
+  const splitted = makeSplittedLinkText(message)
+  const links = message.links
+  if (!links) {
+    return [message.text]
+  }
+  return splitted.map((text) => {
+    const filterredLinks = links.filter((link) => link.linkText === text)
+    if (filterredLinks.length === 0) {
+      return text
+    } else {
+      const link = filterredLinks[0]
+      return (
+        <Link href={link.url}>
+          <a>{link.url}</a>
+        </Link>
+      )
+    }
+  })
 }
 
 const ChatMessage: React.FC<Props> = ({ message, onMounted, isLast }) => {
@@ -151,7 +152,16 @@ const ChatMessage: React.FC<Props> = ({ message, onMounted, isLast }) => {
     }
   }, [onMounted, isLast])
 
-  const messageText = useMemo(() => <span>{makeText(message)}</span>, [message])
+  const messageText = useMemo(() => {
+    const makedText = tagLinkText(message)
+    return (
+      <span>
+        {makedText.map((e, i) => (
+          <p key={i}>{e}</p>
+        ))}
+      </span>
+    )
+  }, [message])
 
   if (!message) {
     return <div />
@@ -162,7 +172,7 @@ const ChatMessage: React.FC<Props> = ({ message, onMounted, isLast }) => {
 
   return (
     <MessageWrapper userType={userType} messageType={messageTypes}>
-      {userType === Meta ? (
+      {!userType ? (
         <MetaMessageBaloon>{messageText}</MetaMessageBaloon>
       ) : ogp ? (
         <MessageBaloon>

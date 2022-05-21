@@ -1,0 +1,355 @@
+[
+  {
+    "type": "SendMessage",
+    "message": {
+      "text": "nakayoshi.danceがログインしました",
+      "type": "MetaMessage"
+    }
+  },
+  {
+    "type": "StartTyping",
+    "user": "Meta"
+  },
+  {
+    "type": "EndTyping",
+    "user": "Meta",
+    "delayed": 0.5
+  },
+  {
+    "type": "SendMessage",
+    "message": {
+      "text": "訪問者がログインしました",
+      "type": "MetaMessage"
+    }
+  },
+  {
+    "type": "EndTyping",
+    "user": "Others",
+    "delayed": 0.4
+  },
+  {
+    "type": "StartTyping",
+    "user": "Others"
+  },
+  {
+    "type": "EndTyping",
+    "user": "Others",
+    "delayed": 1
+  },
+  {
+    "type": "SendMessage",
+    "message": {
+      "text": "nakayoshi.danceへようこそ",
+      "type": "TextMessage",
+      "user": "Others"
+    }
+  },
+  {
+    "type": "StartTyping",
+    "user": "Self"
+  },
+  {
+    "type": "EndTyping",
+    "user": "Self",
+    "delayed": 0.8
+  },
+  {
+    "type": "SendMessage",
+    "message": {
+      "text": "え、だれ？",
+      "type": "TextMessage",
+      "user": "Self"
+    }
+  },
+  {
+    "type": "EndTyping",
+    "user": "Others",
+    "delayed": 0.4
+  },
+  {
+    "type": "StartTyping",
+    "user": "Others"
+  },
+  {
+    "type": "EndTyping",
+    "user": "Others",
+    "delayed": 0.8
+  },
+  {
+    "type": "SendMessage",
+    "message": {
+      "text": "私たちは私たちのことを団体であるとは考えていません",
+      "type": "TextMessage",
+      "user": "Others"
+    }
+  },
+  {
+    "type": "EndTyping",
+    "user": "Others",
+    "delayed": 0.2
+  },
+  {
+    "type": "StartTyping",
+    "user": "Others"
+  },
+  {
+    "type": "EndTyping",
+    "user": "Others",
+    "delayed": 0.8
+  },
+  {
+    "type": "SendMessage",
+    "message": {
+      "text": "あくまで個人間のネットワークなのです",
+      "type": "TextMessage",
+      "user": "Others"
+    }
+  },
+  {
+    "type": "StartTyping",
+    "user": "Self"
+  },
+  {
+    "type": "EndTyping",
+    "user": "Self",
+    "delayed": 0.8
+  },
+  {
+    "type": "SendMessage",
+    "message": {
+      "text": "それを団体っていうんじゃないの？",
+      "type": "TextMessage",
+      "user": "Self"
+    }
+  },
+  {
+    "type": "EndTyping",
+    "user": "Others",
+    "delayed": 0.2
+  },
+  {
+    "type": "StartTyping",
+    "user": "Others"
+  },
+  {
+    "type": "EndTyping",
+    "user": "Others",
+    "delayed": 4
+  },
+  {
+    "type": "SendMessage",
+    "message": {
+      "text": "うるさい　ばか",
+      "type": "TextMessage",
+      "user": "Others"
+    }
+  },
+  {
+    "type": "EndTyping",
+    "user": "Others",
+    "delayed": 1
+  },
+  {
+    "type": "StartTyping",
+    "user": "Others"
+  },
+  {
+    "type": "EndTyping",
+    "user": "Others",
+    "delayed": 2
+  },
+  {
+    "type": "SendMessage",
+    "message": {
+      "text": "もし興味があればDiscordのリンクを差し上げますが？",
+      "type": "TextMessage",
+      "user": "Others"
+    }
+  },
+  {
+    "type": "EndTyping",
+    "user": "Self",
+    "delayed": 0.4
+  },
+  {
+    "type": "StartTyping",
+    "user": "Self"
+  },
+  {
+    "type": "EndTyping",
+    "user": "Self",
+    "delayed": 1
+  },
+  {
+    "type": "SendMessage",
+    "message": {
+      "text": "えぇ...？別にいらないかな。",
+      "type": "TextMessage",
+      "user": "Self"
+    }
+  },
+  {
+    "type": "EndTyping",
+    "user": "Others",
+    "delayed": 0.5
+  },
+  {
+    "type": "StartTyping",
+    "user": "Others"
+  },
+  {
+    "type": "EndTyping",
+    "user": "Others",
+    "delayed": 1
+  },
+  {
+    "type": "SendMessage",
+    "message": {
+      "text": "https://github.com/nakayoshi/",
+      "type": "TextMessage",
+      "user": "Others",
+      "links": [
+        {
+          "linkText": "https://github.com/nakayoshi/",
+          "url": "https://github.com/nakayoshi/"
+        }
+      ]
+    }
+  },
+  {
+    "type": "EndTyping",
+    "user": "Others",
+    "delayed": 0.4
+  },
+  {
+    "type": "SendMessage",
+    "message": {
+      "type": "OgpMessage",
+      "user": "Others",
+      "ogp": {
+        "size": "Large",
+        "title": "なかよし",
+        "description": "Discordサーバー「なかよし」. なか...",
+        "imagePath": "/nakayoshi.jpg",
+        "url": "https://github.com/nakayoshi/"
+      }
+    }
+  },
+  {
+    "type": "EndTyping",
+    "user": "Self",
+    "delayed": 0.2
+  },
+  {
+    "type": "StartTyping",
+    "user": "Self"
+  },
+  {
+    "type": "EndTyping",
+    "user": "Self",
+    "delayed": 1
+  },
+  {
+    "type": "SendMessage",
+    "message": {
+      "text": "GitHubやんけ",
+      "type": "TextMessage",
+      "user": "Self"
+    }
+  },
+  {
+    "type": "EndTyping",
+    "user": "Others",
+    "delayed": 1
+  },
+  {
+    "type": "StartTyping",
+    "user": "Others"
+  },
+  {
+    "type": "EndTyping",
+    "user": "Others",
+    "delayed": 2
+  },
+  {
+    "type": "SendMessage",
+    "message": {
+      "text": "私たちについてもっと知りたいのなら\n/about\nまた話したい時には\n/contact\nにアクセスしてください。では。",
+      "type": "TextMessage",
+      "user": "Others",
+      "links": [
+        {
+          "linkText": "/about",
+          "url": "/about"
+        },
+        {
+          "linkText": "/contact",
+          "url": "/contact"
+        }
+      ]
+    }
+  },
+  {
+    "type": "EndTyping",
+    "user": "Others",
+    "delayed": 0.4
+  },
+  {
+    "type": "SendMessage",
+    "message": {
+      "type": "OgpMessage",
+      "user": "Others",
+      "ogp": {
+        "size": "Small",
+        "title": "About",
+        "description": "私達のことを知る",
+        "imagePath": "/nakayoshi.jpg",
+        "url": "/about"
+      }
+    }
+  },
+  {
+    "type": "EndTyping",
+    "user": "Others",
+    "delayed": 0.1
+  },
+  {
+    "type": "SendMessage",
+    "message": {
+      "type": "OgpMessage",
+      "user": "Others",
+      "ogp": {
+        "size": "Small",
+        "title": "Contact",
+        "description": "話したい？",
+        "imagePath": "/nakayoshi.jpg",
+        "url": "/contact"
+      }
+    }
+  },
+  {
+    "type": "EndTyping",
+    "user": "Others",
+    "delayed": 1
+  },
+  {
+    "type": "SendMessage",
+    "message": {
+      "text": "nakayoshi.danceがログアウトしました",
+      "type": "MetaMessage"
+    }
+  },
+  {
+    "type": "EndTyping",
+    "user": "Self",
+    "delayed": 1
+  },
+  {
+    "type": "SendMessage",
+    "message": {
+      "text": "いなくなっちゃった・・・",
+      "type": "TextMessage",
+      "user": "Self"
+    }
+  }
+]

@@ -5,7 +5,7 @@
 
 import StoryTeller from "app/story/usecase/storyTeller"
 
-const storyTeller = StoryTeller.fromPrepared()
+const storyTeller = StoryTeller.fromPreparedJson()
 
 export const takeMessage = async (index: number) => {
   const result = await storyTeller.tell(index)
