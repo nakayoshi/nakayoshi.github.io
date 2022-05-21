@@ -1,4 +1,4 @@
-import { Meta, User } from "./user"
+import { User } from "./user"
 
 export const TextMessage = "TextMessage"
 export const OgpMessage = "OgpMessage"
@@ -33,35 +33,4 @@ export type OgpInfo = {
 export type LinkInfo = {
   linkText: string
   url: string
-}
-
-type MakeTextMessageParams = {
-  text: string
-  userType: User
-  links?: LinkInfo[]
-}
-
-export const makeTextMessage = (params: MakeTextMessageParams): Message => {
-  return {
-    type: TextMessage,
-    text: params.text,
-    userType: params.userType,
-    links: params.links,
-  }
-}
-
-export const makeMetaMessage = (text: string): Message => {
-  return {
-    type: MetaMessage,
-    text: text,
-    userType: Meta,
-  }
-}
-
-export const makeOgpMessage = (userType: User, ogp: OgpInfo): Message => {
-  return {
-    type: OgpMessage,
-    userType: userType,
-    ogp: ogp,
-  }
 }

@@ -1,17 +1,14 @@
-import { Message, MetaMessage } from "../domain/message"
-import StoryTeller, { SendMessage } from "./storyTeller"
+import { SendMessage } from "../domain/action"
+import { MetaMessage } from "../domain/message"
+import StoryTeller from "./storyTeller"
 
-const storyTeller = StoryTeller.fromPrepared()
+const storyTeller = StoryTeller.fromPreparedJson()
 
 describe("storyTellerのテスト", () => {
   test("tell()うごく？", async () => {
     const first = await storyTeller.tell(0)
-    expect(first.action.type).toBe(SendMessage)
-    const action = first.action as {
-      type: typeof SendMessage
-      message: Message
-    }
-    expect(action.message.type).toBe(MetaMessage)
+    const message = (await first.result) as SendMessage
+    expect(message.message.type).toBe(MetaMessage)
   })
   test("tell()異常系", async () => {
     await expect(storyTeller.tell(999)).rejects.toThrow()
