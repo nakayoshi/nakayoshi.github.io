@@ -5,6 +5,7 @@ import ChatMessage, { MessageBaloon, MessageWrapper } from "./ChatMessage"
 import Typing from "./Typing"
 import { EndTyping, SendMessage, StartTyping } from "app/story/domain/action"
 import { Others } from "app/story/domain/user"
+import { useEffect, useRef } from "react"
 
 const Wrapper = styled.ul`
   background-color: #292841;
@@ -14,11 +15,7 @@ const Wrapper = styled.ul`
 `
 
 const ChatView = () => {
-  // const [isOthersTyping, setIsOthersTyping] = useState(false)
-
-  // const endTyping = useCallback(() => {
-  //   setIsOthersTyping(false)
-  // }, [])
+  const ref = useRef<HTMLUListElement | null>(null)
 
   const { data, fetchNextPage, hasNextPage } = useInfiniteQuery(
     "chats",
@@ -28,8 +25,19 @@ const ChatView = () => {
     }
   )
 
+  useEffect(() => {
+    if (!ref.current) {
+      return
+    }
+
+    ref.current.scrollTo({
+      top: ref.current?.scrollHeight,
+      behavior: "smooth",
+    })
+  }, [data])
+
   return (
-    <Wrapper>
+    <Wrapper ref={ref}>
       {data?.pages.map((response, i) => {
         console.log(response)
         if (response.result instanceof SendMessage) {
