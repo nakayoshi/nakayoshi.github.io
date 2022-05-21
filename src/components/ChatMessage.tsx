@@ -95,7 +95,6 @@ type Props = {
 
 const splitSoft = (text: string, separator: string) => {
   const exp = new RegExp(`(${separator})`)
-  console.log(exp)
   return text.split(exp)
 }
 
@@ -115,7 +114,6 @@ const makeSplittedLinkText = (message: Message) => {
 
     const result = textList.map((text) => splitSoft(text, link.linkText))
 
-    console.log(result)
     if (links.length > index + 1) {
       return make(index + 1, result.flat())
     }

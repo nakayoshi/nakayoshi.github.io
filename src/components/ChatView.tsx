@@ -39,7 +39,6 @@ const ChatView = () => {
   return (
     <Wrapper ref={ref}>
       {data?.pages.map((response, i) => {
-        console.log(response)
         if (response.result instanceof SendMessage) {
           return (
             <ChatMessage
