@@ -1,7 +1,10 @@
 import { useInfiniteQuery } from "react-query"
 import { takeMessage } from "fetcher/storyTeller"
 import styled from "styled-components"
-import ChatMessage from "./ChatMessage"
+import ChatMessage, { MessageBaloon, MessageWrapper } from "./ChatMessage"
+import Typing from "./Typing"
+import { EndTyping, SendMessage, StartTyping } from "app/story/domain/action"
+import { Others } from "app/story/domain/user"
 
 const Wrapper = styled.ul`
   background-color: #292841;
@@ -11,6 +14,12 @@ const Wrapper = styled.ul`
 `
 
 const ChatView = () => {
+  // const [isOthersTyping, setIsOthersTyping] = useState(false)
+
+  // const endTyping = useCallback(() => {
+  //   setIsOthersTyping(false)
+  // }, [])
+
   const { data, fetchNextPage, hasNextPage } = useInfiniteQuery(
     "chats",
     ({ pageParam = 0 }) => takeMessage(pageParam),
@@ -22,14 +31,30 @@ const ChatView = () => {
   return (
     <Wrapper>
       {data?.pages.map((response, i) => {
-        return (
-          <ChatMessage
-            key={i}
-            message={response.message}
-            onMounted={() => fetchNextPage({ cancelRefetch: false })}
-            isLast={!hasNextPage}
-          />
-        )
+        console.log(response)
+        if (response.result instanceof SendMessage) {
+          return (
+            <ChatMessage
+              key={i}
+              message={response.result.message}
+              onMounted={() => fetchNextPage()}
+              isLast={!hasNextPage}
+            />
+          )
+        } else if (response.result instanceof StartTyping) {
+          if (response.result.user === Others && data?.pages.length === i + 1) {
+            return (
+              <MessageWrapper key={i} userType={Others}>
+                <MessageBaloon>
+                  <Typing isTyping={true} />
+                </MessageBaloon>
+              </MessageWrapper>
+            )
+          }
+        } else if (response.result instanceof EndTyping) {
+          // endTyping()
+          return
+        }
       })}
     </Wrapper>
   )

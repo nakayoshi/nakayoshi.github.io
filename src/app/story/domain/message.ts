@@ -1,7 +1,4 @@
-export const Self = "Self"
-export const Others = "Others"
-export const Meta = "Meta"
-export type UserType = typeof Self | typeof Others | typeof Meta
+import { Meta, User } from "./user"
 
 export const TextMessage = "TextMessage"
 export const OgpMessage = "OgpMessage"
@@ -14,19 +11,19 @@ export type MessageType =
 
 export type Message = {
   type: MessageType
-  userType: UserType
+  userType?: User
   text?: string
   links?: LinkInfo[]
   ogp?: OgpInfo
 }
 
-export const OgpSmall = "OgpSmall"
-export const OgpLarge = "OgpLarge"
+export const Small = "OgpSmall"
+export const Large = "OgpLarge"
 
-export type OgpType = typeof OgpSmall | typeof OgpLarge
+export type OgpSize = typeof Small | typeof Large
 
 export type OgpInfo = {
-  type: OgpType
+  size: OgpSize
   title: string
   description: string
   url: string
@@ -35,12 +32,12 @@ export type OgpInfo = {
 
 export type LinkInfo = {
   linkText: string
-  url: URL
+  url: string
 }
 
 type MakeTextMessageParams = {
   text: string
-  userType: UserType
+  userType: User
   links?: LinkInfo[]
 }
 
@@ -61,7 +58,7 @@ export const makeMetaMessage = (text: string): Message => {
   }
 }
 
-export const makeOgpMessage = (userType: UserType, ogp: OgpInfo): Message => {
+export const makeOgpMessage = (userType: User, ogp: OgpInfo): Message => {
   return {
     type: OgpMessage,
     userType: userType,
