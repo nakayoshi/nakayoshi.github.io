@@ -7,7 +7,7 @@ import { EndTyping, SendMessage, StartTyping } from "app/story/domain/action"
 import { Others } from "app/story/domain/user"
 import { useEffect, useRef } from "react"
 
-const Wrapper = styled.ul`
+const Wrapper = styled.ol`
   background-color: #292841;
   width: 100%;
   padding: 10px 0;
@@ -15,7 +15,7 @@ const Wrapper = styled.ul`
 `
 
 const ChatView = () => {
-  const ref = useRef<HTMLUListElement | null>(null)
+  const ref = useRef<HTMLOListElement | null>(null)
 
   const { data, fetchNextPage, hasNextPage } = useInfiniteQuery(
     "chats",
