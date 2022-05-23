@@ -10,6 +10,7 @@
     "next/core-web-vitals",
     "prettier",
     "plugin:cypress/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:storybook/recommended"
   ]
 }
