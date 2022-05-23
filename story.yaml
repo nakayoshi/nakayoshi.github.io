@@ -7,7 +7,7 @@
   user: Meta
 - type: EndTyping
   user: Meta
-  delayed: 0.5
+  delayed: 0.4
 - type: SendMessage
   message:
     text: 訪問者がログインしました
@@ -85,10 +85,10 @@
   user: Others
 - type: EndTyping
   user: Others
-  delayed: 4
+  delayed: 3
 - type: SendMessage
   message:
-    text: うるさい　ばか
+    text: うるさいばか
     type: TextMessage
     user: Others
 
@@ -123,7 +123,7 @@
 
 - type: EndTyping
   user: Others
-  delayed: 0.5
+  delayed: 0.4
 - type: StartTyping
   user: Others
 - type: EndTyping
