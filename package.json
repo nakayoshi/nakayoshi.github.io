@@ -5,6 +5,7 @@
   "scripts": {
     "story": "yq . story.yaml -o json > src/app/story/story.json",
     "cy:open": "cypress open",
+    "cy:test": "cypress run",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

@@ -36,3 +36,4 @@ yarn-error.log*
 
 # cypress example files
 /cypress/*_example
+videos
