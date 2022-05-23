@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  lint:
+  cypress-run:
     runs-on: ubuntu-20.04
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
@@ -28,7 +28,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Install Dependencies
-        run: yarn install
-      - name: Cypress Integration Test
-        run: yarn cy:run
+      # Next.jsアプリを起動
+      - name: Start App
+        run: |
+          yarn
+          yarn build
+          yarn start &
+      - name: Test
+        uses: cypress-io/github-action@v2
+        with:
+          wait-on: "http://localhost:3000"
+          browser: chrome
