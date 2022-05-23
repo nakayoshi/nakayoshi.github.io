@@ -1,0 +1,45 @@
+# Borrowed from https://www.chromatic.com/docs/github-actions
+name: Chromatic
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - "*"
+
+jobs:
+  chromatic-deployment:
+    name: Chromatic Deployment
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+
+      # https://dev.to/mpocock1/how-to-cache-nodemodules-in-github-actions-with-yarn-24e
+      - name: Restore Yarn Caches
+        uses: actions/cache@v2.1.7
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-client-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Yarn
+        run: yarn install
+
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        with:
+          autoAcceptChanges: main
+          exitZeroOnChanges: true
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          skip: "dependabot/**"
+          token: ${{ secrets.GITHUB_TOKEN }}
